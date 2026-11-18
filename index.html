@@ -1,0 +1,2616 @@
+The following image can be moved on the page using keyboard controls (left, right, up, down)
+
+Voice Typing
+
+Ready for your note — just start speaking...
+
+Copy
+Play selection 
+⌥
+A
+
+Save to Library
+⌥
+S
+
+Talk to Assistant
+Dictate
+
+Settings
+
+Essay_Prep.html
+
+100%
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="dashboard">
+  <meta name="design-style" content="briefing">
+  <title>Bradbury × Sher: Literary Analysis &amp; Essay Planning Dossier</title>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* 1. Briefing style tokens */
+      --background: #faf9f5;
+      --surface-container-low: #ffffff;
+      --surface-container: #f1efe8;
+      --surface-container-high: #e6e2d6;
+
+      --on-surface: #17181a;
+      --on-surface-variant: #56585c;
+
+      --outline: #17181a;
+      --outline-variant: #dedad0;
+      --border-muted: #c8c4b8;
+
+      --primary: #17181a;
+      --on-primary: #faf9f5;
+      --primary-container: #f2b705;
+      --on-primary-container: #17181a;
+      --secondary: #1f4e5f;
+      --on-secondary: #ffffff;
+      --secondary-soft: #e6eff2;
+      --tertiary: #785008;
+      --tertiary-soft: #f5e6c4;
+      --error: #b42318;
+      --on-error: #ffffff;
+      --error-soft: #fdeceb;
+
+      --data-1: #1f4e5f;
+      --data-2: #d99000;
+      --data-3: #2b6e52;
+      --data-4: #b84a39;
+      --data-context: #c4bfb2;
+
+      --font-headline: 'Source Serif 4', serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-label: 'Geist Mono', monospace;
+
+      --rounded: 0.25rem;
+      --rounded-lg: 0.375rem;
+      --rounded-full: 0.25rem;
+
+      --section-rule: 1.5px solid var(--outline);
+      --card-border: 1px solid var(--outline-variant);
+      --badge-radius: 2px;
+      --heading-tracking: -0.02em;
+      --label-tracking: 0.08em;
+
+      /* 3. Shared foundation tokens */
+      --positive: #2b6e52;
+      --positive-soft: #e5f1ec;
+      --warning: #8a5a00;
+      --focus: #1f4e5f;
+
+      /* Dashboard / Tool Type Scale */
+      --display-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.25rem);
+      --headline-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+      --subhead-size: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+      --body-size: clamp(0.9375rem, 0.9rem + 0.15vw, 1rem);
+      --label-size: 0.75rem;
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    header { position: static !important; }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: inherit;
+      color: inherit;
+    }
+
+    :focus-visible {
+      outline: 2.5px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .page-grid {
+      display: grid;
+      gap: var(--space-xl);
+      padding: var(--space-lg);
+      max-width: 1220px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Briefing Dossier Treatments */
+    .dossier-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      border-bottom: var(--section-rule);
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    .dossier-bar-left {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .dossier-pill {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.6875rem;
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      padding: 0.1875rem 0.5rem;
+      border-radius: var(--badge-radius);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .dossier-meta {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      color: var(--on-surface-variant);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .title {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: var(--display-size);
+      letter-spacing: var(--heading-tracking);
+      line-height: 1.08;
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .standfirst {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: var(--subhead-size);
+      color: var(--secondary);
+      margin: var(--space-xs) 0 0 0;
+      max-width: 72ch;
+      line-height: 1.4;
+    }
+    h2.section-title {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: var(--headline-size);
+      letter-spacing: var(--heading-tracking);
+      line-height: 1.15;
+      margin: 0 0 var(--space-xs) 0;
+      color: var(--on-surface);
+    }
+    .section-deck {
+      font-size: var(--body-size);
+      color: var(--on-surface-variant);
+      margin: 0 0 var(--space-md) 0;
+      max-width: 70ch;
+    }
+    h3 {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: var(--subhead-size);
+      margin: 0 0 var(--space-xs) 0;
+      line-height: 1.25;
+    }
+
+    .figure-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+    }
+    .aside-box {
+      background: var(--surface-container);
+      border-top: var(--section-rule);
+      border-radius: 0 0 var(--rounded-lg) var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+    }
+    .index-num {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      color: var(--secondary);
+      letter-spacing: 0.06em;
+    }
+
+    /* Buttons & Controls */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: background-color var(--dur-micro) var(--ease-out),
+                  color var(--dur-micro) var(--ease-out),
+                  box-shadow var(--dur-micro) var(--ease-out);
+      text-decoration: none;
+    }
+    .btn-sm {
+      min-height: 36px;
+      padding: var(--space-xs) var(--space-sm);
+      font-size: 0.8125rem;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: var(--on-primary);
+    }
+    .btn-primary:hover {
+      background: var(--secondary);
+    }
+    .btn-secondary {
+      background: var(--surface-container-low);
+      border-color: var(--border-muted);
+      color: var(--on-surface);
+    }
+    .btn-secondary:hover {
+      background: var(--surface-container);
+    }
+    .btn-secondary[aria-pressed="true"],
+    .btn-chip.active {
+      background: var(--secondary);
+      border-color: var(--secondary);
+      color: var(--on-secondary);
+    }
+    .btn-pin {
+      background: var(--surface-container-low);
+      border-color: var(--border-muted);
+      color: var(--on-surface);
+      min-height: 36px;
+      padding: var(--space-xs) var(--space-sm);
+      font-size: 0.8125rem;
+    }
+    .btn-pin:hover {
+      background: var(--surface-container);
+    }
+    .btn-pin.pinned {
+      background: var(--primary-container);
+      border-color: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+    .btn-danger-arm {
+      background: var(--error-soft);
+      border-color: var(--error);
+      color: var(--error);
+    }
+
+    /* Header Actions & Jump Nav */
+    .header-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .save-status {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--positive);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .jump-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      padding-top: var(--space-md);
+      margin-top: var(--space-md);
+      border-top: var(--card-border);
+    }
+    .jump-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+      color: var(--on-surface);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 600;
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .jump-link:hover {
+      background: var(--surface-container);
+    }
+    .jump-link .index-num {
+      color: var(--secondary);
+    }
+
+    /* KPI Strip */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+    .kpi-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .kpi-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+    }
+    .kpi-value {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 1.625rem;
+      font-variant-numeric: lining-nums tabular-nums;
+      color: var(--on-surface);
+      line-height: 1.1;
+    }
+    .kpi-sub {
+      font-size: 0.8125rem;
+      color: var(--secondary);
+      font-weight: 500;
+    }
+
+    /* Tags / Chips */
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.125rem 0.5rem;
+      border-radius: var(--rounded);
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      background: var(--tertiary-soft);
+      color: var(--tertiary);
+    }
+    .tag-petrol {
+      background: var(--secondary-soft);
+      color: var(--secondary);
+    }
+    .tag-pine {
+      background: var(--positive-soft);
+      color: var(--positive);
+    }
+    .tag-gold {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+
+    /* Module 1: Psychological Lenses */
+    .lens-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.25fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .lens-filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    .lens-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .lens-item {
+      width: 100%;
+      text-align: left;
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-sm) var(--space-md);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      min-height: 44px;
+      transition: background-color var(--dur-micro) var(--ease-out),
+                  box-shadow var(--dur-micro) var(--ease-out);
+    }
+    .lens-item:hover {
+      background: var(--surface-container);
+    }
+    .lens-item.active {
+      background: var(--surface-container-low);
+      box-shadow: inset 4px 0 0 var(--secondary), 0 0 0 1px var(--secondary);
+    }
+    .lens-item-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+    .lens-item-title {
+      font-weight: 700;
+      font-size: 0.9375rem;
+      color: var(--on-surface);
+    }
+    .lens-item-sub {
+      font-size: 0.8125rem;
+      color: var(--on-surface-variant);
+    }
+    .lens-detail-card {
+      position: sticky;
+      top: var(--space-md);
+    }
+    .quote-callout {
+      border-left: 3px solid var(--secondary);
+      background: var(--background);
+      padding: var(--space-sm) var(--space-md);
+      margin: var(--space-md) 0;
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: 1.03rem;
+      line-height: 1.5;
+    }
+    .quote-cite {
+      display: block;
+      font-family: var(--font-label);
+      font-style: normal;
+      font-size: var(--label-size);
+      color: var(--secondary);
+      margin-top: var(--space-xs);
+      font-weight: 600;
+    }
+    .dual-app-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-md);
+    }
+    .app-box {
+      background: var(--surface-container);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      border-top: 2px solid var(--data-1);
+    }
+    .app-box.sher {
+      border-top-color: var(--data-2);
+    }
+    .app-box-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 600;
+      color: var(--on-surface);
+      margin-bottom: var(--space-xs);
+    }
+
+    /* Comparison Force Bar Chart */
+    .chart-card {
+      margin-top: var(--space-lg);
+    }
+    .chart-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      margin-bottom: var(--space-md);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+    }
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .legend-swatch {
+      width: 12px;
+      height: 12px;
+      border-radius: var(--badge-radius);
+      display: inline-block;
+    }
+    .swatch-bradbury { background: var(--data-1); }
+    .swatch-sher { background: var(--data-2); }
+    .force-bars {
+      display: grid;
+      gap: var(--space-md);
+    }
+    .force-row {
+      display: grid;
+      grid-template-columns: minmax(150px, 230px) minmax(0, 1fr);
+      gap: var(--space-md);
+      align-items: center;
+    }
+    .force-label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--on-surface);
+    }
+    .force-track-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .force-bar-wrap {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .force-track {
+      flex: 1;
+      height: 10px;
+      background: var(--surface-container);
+      border-radius: var(--badge-radius);
+      overflow: hidden;
+    }
+    .force-fill-bradbury {
+      height: 100%;
+      background: var(--data-1);
+      transition: width var(--dur-short) var(--ease-out);
+    }
+    .force-fill-sher {
+      height: 100%;
+      background: var(--data-2);
+      transition: width var(--dur-short) var(--ease-out);
+    }
+    .force-val {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      min-width: 70px;
+    }
+
+    /* Module 2: Evidence Map */
+    .filter-toolbar {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(220px, 300px);
+      gap: var(--space-md);
+      align-items: end;
+      margin-bottom: var(--space-md);
+    }
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .input-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 600;
+      color: var(--on-surface);
+    }
+    .field-input, .field-select, .field-textarea {
+      width: 100%;
+      background: var(--surface-container-low);
+      border: 1px solid var(--border-muted);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-md);
+      min-height: 44px;
+      color: var(--on-surface);
+      transition: box-shadow var(--dur-micro) var(--ease-out);
+    }
+    .field-select {
+      padding-right: var(--space-xl);
+    }
+    .field-textarea {
+      min-height: 88px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+    .field-input:focus, .field-select:focus, .field-textarea:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px var(--focus);
+    }
+
+    .evidence-pair-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    .evidence-pair {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      overflow: hidden;
+    }
+    .pair-header {
+      background: var(--surface-container);
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: var(--card-border);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+    .pair-title {
+      font-weight: 700;
+      font-size: 0.9375rem;
+      color: var(--on-surface);
+    }
+    .pair-columns {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .pair-col {
+      padding: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+    .pair-col + .pair-col {
+      border-left: var(--card-border);
+    }
+    .story-tag-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+    .quote-text {
+      font-family: var(--font-headline);
+      font-size: 1.02rem;
+      line-height: 1.5;
+      color: var(--on-surface);
+      margin: var(--space-xs) 0;
+    }
+    .quote-analysis {
+      font-size: 0.875rem;
+      color: var(--on-surface-variant);
+      margin: 0;
+    }
+    .pair-footer {
+      background: var(--background);
+      border-top: var(--card-border);
+      padding: var(--space-sm) var(--space-md);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      font-size: 0.875rem;
+    }
+    .bridge-note {
+      color: var(--secondary);
+      font-weight: 600;
+    }
+
+    /* Pinned Tray */
+    .pinned-tray {
+      margin-top: var(--space-md);
+    }
+    .pinned-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-top: var(--space-sm);
+    }
+    .pinned-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded);
+      padding: var(--space-xs) var(--space-sm);
+      font-size: 0.8125rem;
+    }
+    .chip-remove {
+      background: transparent;
+      border: none;
+      color: var(--error);
+      font-weight: 700;
+      cursor: pointer;
+      min-width: 28px;
+      min-height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--rounded);
+    }
+    .chip-remove:hover {
+      background: var(--error-soft);
+    }
+
+    /* Module 3: Thesis Builder */
+    .thesis-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .thesis-inputs {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    .thesis-preview-box {
+      background: var(--background);
+      border: var(--card-border);
+      border-left: 4px solid var(--primary-container);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      font-family: var(--font-headline);
+      font-size: 1.125rem;
+      line-height: 1.55;
+      margin: var(--space-sm) 0 var(--space-md) 0;
+    }
+    .seg-compare { color: var(--secondary); font-weight: 600; }
+    .seg-contrast-a { color: var(--on-surface); text-decoration: underline; text-decoration-color: var(--data-1); text-underline-offset: 3px; }
+    .seg-contrast-b { color: var(--on-surface); text-decoration: underline; text-decoration-color: var(--data-2); text-underline-offset: 3px; }
+    .seg-lens { color: var(--positive); font-style: italic; }
+
+    .check-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      font-size: 0.875rem;
+    }
+    .check-badge {
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.125rem 0.4rem;
+      border-radius: var(--badge-radius);
+      flex-shrink: 0;
+    }
+    .check-pass {
+      background: var(--positive-soft);
+      color: var(--positive);
+    }
+    .check-warn {
+      background: var(--tertiary-soft);
+      color: var(--tertiary);
+    }
+    .check-fail {
+      background: var(--error-soft);
+      color: var(--error);
+    }
+
+    /* Module 4: 5-Paragraph Blueprint */
+    .path-switch {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+    .path-btn {
+      text-align: left;
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      transition: background-color var(--dur-micro) var(--ease-out),
+                  box-shadow var(--dur-micro) var(--ease-out);
+    }
+    .path-btn:hover { background: var(--surface-container); }
+    .path-btn.active {
+      box-shadow: inset 4px 0 0 var(--primary-container), 0 0 0 1.5px var(--on-surface);
+    }
+    .blueprint-stack {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    .para-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+    }
+    .para-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      border-bottom: var(--card-border);
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    .para-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .para-fields {
+      display: grid;
+      gap: var(--space-md);
+    }
+    .quick-insert-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .vocab-chip {
+      background: var(--surface-container);
+      border: 1px solid var(--border-muted);
+      border-radius: var(--rounded);
+      padding: 0.25rem 0.55rem;
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      cursor: pointer;
+      min-height: 32px;
+    }
+    .vocab-chip:hover {
+      background: var(--surface-container-high);
+    }
+    .compiled-outline {
+      margin-top: var(--space-lg);
+      white-space: pre-wrap;
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      line-height: 1.65;
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+    }
+
+    /* Module 5: MLA Guide & Academic Checklist */
+    .mla-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .mla-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+    .mla-table th {
+      text-align: left;
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: var(--space-sm);
+      border-bottom: var(--section-rule);
+      color: var(--on-surface);
+    }
+    .mla-table td {
+      padding: var(--space-sm);
+      border-bottom: var(--card-border);
+      vertical-align: top;
+    }
+    .code-sample {
+      font-family: var(--font-label);
+      font-size: 0.8125rem;
+      background: var(--surface-container);
+      padding: 0.15rem 0.35rem;
+      border-radius: var(--badge-radius);
+    }
+    .quiz-card {
+      background: var(--surface-container);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      margin-top: var(--space-md);
+    }
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      margin-top: var(--space-sm);
+    }
+    .quiz-opt {
+      text-align: left;
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      background: var(--surface-container-low);
+      border: 1px solid var(--border-muted);
+      border-radius: var(--rounded);
+      cursor: pointer;
+      font-family: var(--font-label);
+      font-size: 0.8125rem;
+    }
+    .quiz-opt:hover { background: var(--surface-container-high); }
+    .quiz-opt.correct {
+      background: var(--positive-soft);
+      border-color: var(--positive);
+      color: var(--positive);
+      font-weight: 600;
+    }
+    .quiz-opt.wrong {
+      background: var(--error-soft);
+      border-color: var(--error);
+      color: var(--error);
+    }
+    .checklist-row {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      padding: var(--space-sm) 0;
+      border-bottom: var(--card-border);
+      cursor: pointer;
+    }
+    .checklist-row:last-child { border-bottom: none; }
+    .checklist-row input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      accent-color: var(--secondary);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .footer-note {
+      border-top: var(--section-rule);
+      padding-top: var(--space-md);
+      font-size: 0.8125rem;
+      color: var(--on-surface-variant);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+
+    .hidden { display: none !important; }
+
+    /* Responsive adjustments */
+    @media (max-width: 900px) {
+      .lens-layout,
+      .thesis-grid,
+      .mla-grid,
+      .pair-columns,
+      .filter-toolbar {
+        grid-template-columns: 1fr;
+      }
+      .pair-col + .pair-col {
+        border-left: none;
+        border-top: var(--card-border);
+      }
+      .lens-detail-card {
+        position: static;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        grid-template-columns: 1fr;
+        padding: var(--space-md);
+        gap: var(--space-lg);
+      }
+      .force-row {
+        grid-template-columns: 1fr;
+        gap: var(--space-xs);
+      }
+      .figure-card, .para-card {
+        padding: var(--space-md);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid">
+    <!-- MASTHEAD & OVERVIEW -->
+    <header>
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">UNIT 1 DOSSIER</span>
+          <span class="dossier-meta">FOLLOWING THE CROWD &bull; LITERARY ANALYSIS WORKBENCH</span>
+        </div>
+        <div class="header-actions">
+          <span id="save-status" class="save-status" aria-live="polite">Ready</span>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="exportEssayPlan()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export Plan (.txt)
+          </button>
+          <button type="button" id="reset-btn" class="btn btn-secondary btn-sm" onclick="handleResetWorkspace(this)">Reset Workspace</button>
+        </div>
+      </div>
+
+      <h1 class="title"><em>All Summer in a Day</em> &amp; <em>The Man in the Well</em>: Essay Planning Dashboard</h1>
+      <p class="standfirst">Compare and contrast how group conformity, anonymity, and &ldquo;us vs. them&rdquo; thinking drive collective cruelty in Ray Bradbury&rsquo;s Venus schoolroom and Ira Sher&rsquo;s abandoned well.</p>
+
+      <div class="aside-box" style="margin-top: var(--space-md);">
+        <span class="index-num">CULMINATING TASK PROMPT</span>
+        <p style="margin: var(--space-xs) 0 0 0;"><strong>Compare and contrast</strong> the motivations of two characters or groups who made choices based on social influence (<em>&ldquo;All Summer in a Day&rdquo;</em> and <em>&ldquo;The Man in the Well&rdquo;</em>). Support your analysis with concrete details from both fiction texts and at least one unit nonfiction text (<em>&ldquo;The Effect of Others&rdquo;</em> or <em>&ldquo;When Good People Do Bad Things&rdquo;</em>).</p>
+      </div>
+
+      <!-- KPI Summary Strip -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <span class="kpi-label">01 &bull; Thesis Readiness</span>
+          <span class="kpi-value" id="kpi-thesis">0 / 3</span>
+          <span class="kpi-sub" id="kpi-thesis-sub">Add comparison &amp; contrasts</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">02 &bull; Pinned Evidence</span>
+          <span class="kpi-value" id="kpi-evidence">0 Quotes</span>
+          <span class="kpi-sub" id="kpi-evidence-sub">Target: Bradbury, Sher &amp; Nonfiction</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">03 &bull; Essay Blueprint</span>
+          <span class="kpi-value" id="kpi-blueprint">0 / 5</span>
+          <span class="kpi-sub" id="kpi-blueprint-sub">Path A: Connection-First</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">04 &bull; Writing Standards</span>
+          <span class="kpi-value" id="kpi-checklist">0 / 6</span>
+          <span class="kpi-sub">3rd-person &bull; Present tense &bull; MLA</span>
+        </div>
+      </div>
+
+      <!-- Jump Navigation -->
+      <nav class="jump-nav" aria-label="Dashboard Sections">
+        <a class="jump-link" href="#mod-lenses"><span class="index-num">01</span> Psychological Lenses</a>
+        <a class="jump-link" href="#mod-evidence"><span class="index-num">02</span> Comparative Evidence Map</a>
+        <a class="jump-link" href="#mod-thesis"><span class="index-num">03</span> Thesis Builder</a>
+        <a class="jump-link" href="#mod-blueprint"><span class="index-num">04</span> 5-Paragraph Blueprint</a>
+        <a class="jump-link" href="#mod-mla"><span class="index-num">05</span> MLA Citation &amp; Checklist</a>
+      </nav>
+    </header>
+
+    <!-- MODULE 01: PSYCHOLOGICAL LENSES -->
+    <section id="mod-lenses">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">01 NONFICTION LENSES</span>
+          <span class="dossier-meta">EXPLORATORIUM &bull; TRAFTON (MIT NEWS)</span>
+        </div>
+      </div>
+      <h2 class="section-title">Psychological Forces Driving Both Groups</h2>
+      <p class="section-deck">Select a social-science mechanism to see its exact definition, verbatim source quote, and how it explains the children&rsquo;s choices in Bradbury&rsquo;s and Sher&rsquo;s stories.</p>
+
+      <div class="lens-filter-row" role="group" aria-label="Filter psychological concepts by source">
+        <button type="button" class="btn btn-secondary btn-sm btn-chip active" data-lens-source="all" onclick="filterLenses('all', this)">All Concepts (8)</button>
+        <button type="button" class="btn btn-secondary btn-sm btn-chip" data-lens-source="Exploratorium" onclick="filterLenses('Exploratorium', this)">&ldquo;The Effect of Others&rdquo; (4)</button>
+        <button type="button" class="btn btn-secondary btn-sm btn-chip" data-lens-source="Trafton" onclick="filterLenses('Trafton', this)">&ldquo;When Good People Do Bad Things&rdquo; (4)</button>
+      </div>
+
+      <div class="lens-layout">
+        <div id="lens-list" class="lens-list" role="listbox" aria-label="Psychological concepts"></div>
+
+        <div id="lens-detail" class="figure-card lens-detail-card" aria-live="polite">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+
+      <!-- Comparative Psychological Intensity Chart -->
+      <div class="figure-card chart-card">
+        <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:baseline; gap:var(--space-sm); margin-bottom:var(--space-sm);">
+          <div>
+            <h3>Social Influence Profile: Venus Classmates vs. Children at the Well</h3>
+            <p style="margin:0; font-size:0.875rem; color:var(--on-surface-variant);">Where the two groups overlap (conformity &amp; peer pressure) versus where their primary motivations diverge (&ldquo;us vs. them&rdquo; hostility vs. anonymity).</p>
+          </div>
+          <div class="chart-legend">
+            <span class="legend-item"><span class="legend-swatch swatch-bradbury"></span> Bradbury (&ldquo;All Summer in a Day&rdquo;)</span>
+            <span class="legend-item"><span class="legend-swatch swatch-sher"></span> Sher (&ldquo;The Man in the Well&rdquo;)</span>
+          </div>
+        </div>
+        <div class="force-bars">
+          <div class="force-row">
+            <span class="force-label">Conformity &amp; Going Along</span>
+            <div class="force-track-group">
+              <div class="force-bar-wrap"><div class="force-track"><div class="force-fill-bradbury" style="width:90%"></div></div><span class="force-val">High (9/10)</span></div>
+              <div class="force-bar-wrap"><div class="force-track"><div class="force-fill-sher" style="width:95%"></div></div><span class="force-val">Peak (9.5/10)</span></div>
+            </div>
+          </div>
+          <div class="force-row">
+            <span class="force-label">&ldquo;Us vs. Them&rdquo; Hostility</span>
+            <div class="force-track-group">
+              <div class="force-bar-wrap"><div class="force-track"><div class="force-fill-bradbury" style="width:95%"></div></div><span class="force-val">Primary (9.5)</span></div>
+              <div class="force-bar-wrap"><div class="force-track"><div class="force-fill-sher" style="width:45%"></div></div><span class="force-val">Moderate (4.5)</span></div>
+            </div>
+          </div>
+          <div class="force-row">
+            <span class="force-label">Group Anonymity Shield</span>
+            <div class="force-track-group">
+              <div class="force-bar-wrap"><div class="force-track"><div class="force-fill-bradbury" style="width:65%"></div></div><span class="force-val">Shared (6.5)</span></div>
+              <div class="force-bar-wrap"><div class="force-track"><div class="force-fill-sher" style="width:100%"></div></div><span class="force-val">Core (10/10)</span></div>
+            </div>
+          </div>
+          <div class="force-row">
+            <span class="force-label">Bystander Silence / Inaction</span>
+            <div class="force-track-group">
+              <div class="force-bar-wrap"><div class="force-track"><div class="force-fill-bradbury" style="width:80%"></div></div><span class="force-val">Strong (8/10)</span></div>
+              <div class="force-bar-wrap"><div class="force-track"><div class="force-fill-sher" style="width:95%"></div></div><span class="force-val">Severe (9.5)</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODULE 02: COMPARATIVE EVIDENCE MAP -->
+    <section id="mod-evidence">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">02 EVIDENCE MAP</span>
+          <span class="dossier-meta">DIRECT QUOTES &amp; CONCRETE DETAILS</span>
+        </div>
+      </div>
+      <h2 class="section-title">Comparative Evidence Map</h2>
+      <p class="section-deck">Inspect paired moments from both stories side by side. Pin your strongest quotes to insert them directly into your 5-paragraph essay blueprint.</p>
+
+      <div class="filter-toolbar">
+        <div>
+          <span class="input-label" style="display:block; margin-bottom:var(--space-xs);">Filter by Story Stage &amp; Theme</span>
+          <div style="display:flex; flex-wrap:wrap; gap:var(--space-xs);" role="group" aria-label="Filter evidence categories">
+            <button type="button" class="btn btn-secondary btn-sm btn-chip active" data-ev-cat="all" onclick="filterEvidenceCat('all', this)">All Pairs (6)</button>
+            <button type="button" class="btn btn-secondary btn-sm btn-chip" data-ev-cat="motivation" onclick="filterEvidenceCat('motivation', this)">Motivations &amp; Difference</button>
+            <button type="button" class="btn btn-secondary btn-sm btn-chip" data-ev-cat="action" onclick="filterEvidenceCat('action', this)">Collective Action</button>
+            <button type="button" class="btn btn-secondary btn-sm btn-chip" data-ev-cat="anonymity" onclick="filterEvidenceCat('anonymity', this)">Identity &amp; Anonymity</button>
+            <button type="button" class="btn btn-secondary btn-sm btn-chip" data-ev-cat="aftermath" onclick="filterEvidenceCat('aftermath', this)">Guilt &amp; Repercussions</button>
+          </div>
+        </div>
+        <div class="input-group">
+          <label class="input-label" for="evidence-search">Search quotes or paragraph #</label>
+          <input type="text" id="evidence-search" class="field-input" placeholder="e.g., closet, name, William, 55..." oninput="renderEvidenceMap()">
+        </div>
+      </div>
+
+      <div id="evidence-pair-list" class="evidence-pair-list"></div>
+
+      <div class="aside-box pinned-tray">
+        <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:var(--space-sm);">
+          <div>
+            <span class="index-num">YOUR PINNED ESSAY EVIDENCE</span>
+            <p style="margin:var(--space-xs) 0 0 0; font-size:0.875rem; color:var(--on-surface-variant);">Aim for at least <strong>1 quote from Bradbury</strong>, <strong>1 quote from Sher</strong>, and <strong>1 nonfiction concept/quote</strong>.</p>
+          </div>
+          <span id="pinned-balance-badge" class="tag">0 Pinned</span>
+        </div>
+        <div id="pinned-chips" class="pinned-chips"></div>
+      </div>
+    </section>
+
+    <!-- MODULE 03: THESIS / CENTRAL IDEA BUILDER -->
+    <section id="mod-thesis">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">03 CENTRAL IDEA</span>
+          <span class="dossier-meta">THESIS BUILDER &amp; LIVE CHECKLIST</span>
+        </div>
+      </div>
+      <h2 class="section-title">Thesis / Central Idea Builder</h2>
+      <p class="section-deck">A strong central idea (1&ndash;3 sentences) names both groups and texts, identifies one shared behavior or outcome, and contrasts their distinct motivations.</p>
+
+      <div class="thesis-grid">
+        <div class="figure-card thesis-inputs">
+          <div style="display:flex; flex-wrap:wrap; gap:var(--space-sm); justify-content:space-between; align-items:center;">
+            <span class="index-num">STEP-BY-STEP INGREDIENTS</span>
+            <div style="display:flex; gap:var(--space-xs);">
+              <button type="button" class="btn btn-secondary btn-sm" onclick="loadThesisPreset()">Load Exemplar Model</button>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="clearThesisFields()">Clear</button>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label" for="thesis-compare-preset">1. Shared Connection (Both Groups)</label>
+            <select id="thesis-compare-preset" class="field-select" onchange="applyThesisPreset('compare', this.value)">
+              <option value="">Choose a starter or edit below...</option>
+              <option value="both groups of children unite to harm an isolated individual who depends on them">Both groups unite to harm an isolated individual</option>
+              <option value="the children conform to peer pressure and make cruel choices they likely would not make alone">Both groups conform to peer pressure and act cruelly</option>
+              <option value="both groups silence their individual consciences to follow the crowd, leading to lasting harm">Both groups silence personal morals to follow the crowd</option>
+            </select>
+            <input type="text" id="thesis-compare" class="field-input" value="" placeholder="Describe the shared action or outcome..." oninput="updateThesisFromInputs()">
+          </div>
+
+          <div class="input-group">
+            <label class="input-label" for="thesis-bradbury-preset">2. Distinction A: Bradbury&rsquo;s Children (&ldquo;All Summer in a Day&rdquo;)</label>
+            <select id="thesis-bradbury-preset" class="field-select" onchange="applyThesisPreset('bradbury', this.value)">
+              <option value="">Choose a starter or edit below...</option>
+              <option value="the children on Venus are motivated by envy of Margot&rsquo;s memories and &ldquo;us vs. them&rdquo; hostility toward her differences">Envy of Margot&rsquo;s memories &amp; &ldquo;us vs. them&rdquo; hostility</option>
+              <option value="Bradbury&rsquo;s classmates retaliate against Margot because her Earth past and possible return make her an outsider target">Retaliating against Margot because she stands out</option>
+              <option value="the children follow William&rsquo;s lead out of jealousy and a desire to fit into the dominant group">Following William out of jealousy &amp; conformity</option>
+            </select>
+            <input type="text" id="thesis-bradbury" class="field-input" value="" placeholder="Explain the Venus classmates&rsquo; distinct motivation..." oninput="updateThesisFromInputs()">
+          </div>
+
+          <div class="input-group">
+            <label class="input-label" for="thesis-sher-preset">3. Distinction B: Sher&rsquo;s Children (&ldquo;The Man in the Well&rdquo;)</label>
+            <select id="thesis-sher-preset" class="field-select" onchange="applyThesisPreset('sher', this.value)">
+              <option value="">Choose a starter or edit below...</option>
+              <option value="the children at the well leave the man trapped out of fear of breaking group anonymity and going against their peers">Fear of breaking anonymity &amp; going against peers</option>
+              <option value="Sher&rsquo;s children remain silent because pluralistic ignorance and diffused responsibility keep anyone from stepping forward">Pluralistic ignorance &amp; diffused responsibility</option>
+              <option value="the children abandon the man once he learns their names because losing anonymity threatens their collective secret">Protecting anonymity once the man learns their names</option>
+            </select>
+            <input type="text" id="thesis-sher" class="field-input" value="" placeholder="Explain the well children&rsquo;s distinct motivation..." oninput="updateThesisFromInputs()">
+          </div>
+
+          <div class="input-group">
+            <label class="input-label" for="thesis-lens">4. Nonfiction Synthesis Clause (Optional Bridge)</label>
+            <input type="text" id="thesis-lens" class="field-input" value="" placeholder="e.g., demonstrating how group dynamics override private moral standards." oninput="updateThesisFromInputs()">
+          </div>
+        </div>
+
+        <div class="figure-card">
+          <span class="index-num">LIVE CENTRAL IDEA PREVIEW</span>
+          <div id="thesis-preview" class="thesis-preview-box">
+            Complete the fields on the left (or click <strong>Load Exemplar Model</strong>) to assemble your 1&ndash;3 sentence central idea.
+          </div>
+
+          <span class="index-num" style="display:block; margin-bottom:var(--space-sm);">CENTRAL IDEA &amp; STYLE CHECK</span>
+          <ul id="thesis-checks" class="check-list"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODULE 04: 5-PARAGRAPH ESSAY BLUEPRINT -->
+    <section id="mod-blueprint">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">04 ESSAY ARCHITECTURE</span>
+          <span class="dossier-meta">INTERACTIVE 5-PARAGRAPH BLUEPRINT</span>
+        </div>
+      </div>
+      <h2 class="section-title">5-Paragraph Essay Blueprint</h2>
+      <p class="section-deck">Choose your structural pathway, select a hook and conclusion strategy, click pinned evidence to drop citations into your body paragraphs, and draft your plan.</p>
+
+      <div class="path-switch" role="group" aria-label="Essay organizational path">
+        <button type="button" id="btn-path-a" class="path-btn active" onclick="setEssayPath('A')">
+          <span class="index-num">PATH A &bull; CONNECTION-FIRST</span>
+          <strong>Similarity, Then Contrasts</strong>
+          <span style="font-size:0.875rem; color:var(--on-surface-variant);">Body 1 compares shared group behaviors across both stories. Body 2 analyzes Bradbury&rsquo;s distinct motive; Body 3 analyzes Sher&rsquo;s distinct motive.</span>
+        </button>
+        <button type="button" id="btn-path-b" class="path-btn" onclick="setEssayPath('B')">
+          <span class="index-num">PATH B &bull; TEXT-BY-TEXT</span>
+          <strong>Analyze Each Story, Then Synthesize</strong>
+          <span style="font-size:0.875rem; color:var(--on-surface-variant);">Body 1 analyzes Bradbury + nonfiction. Body 2 analyzes Sher + nonfiction. Body 3 directly compares &amp; contrasts both groups&rsquo; motivations.</span>
+        </button>
+      </div>
+
+      <div id="blueprint-stack" class="blueprint-stack">
+        <!-- Paragraph 1: Introduction -->
+        <article class="para-card">
+          <div class="para-head">
+            <div class="para-title-wrap">
+              <span class="dossier-pill">01</span>
+              <h3 style="margin:0;">Introduction: Hook, Bridge &amp; Central Idea</h3>
+            </div>
+            <span class="tag tag-petrol">Hook + Thesis</span>
+          </div>
+          <div class="para-fields">
+            <div class="input-group">
+              <label class="input-label" for="hook-style">Choose Hook Strategy</label>
+              <select id="hook-style" class="field-select" onchange="updateHookStarter()">
+                <option value="universal">1. Universal Truth (Broad human observation)</option>
+                <option value="research">2. Research Spotlight (Lead with psychology finding)</option>
+                <option value="juxtaposition">3. Text Juxtaposition (Contrast the two settings)</option>
+              </select>
+            </div>
+            <div id="hook-exemplar-box" class="aside-box" style="margin:0; padding:var(--space-sm) var(--space-md);">
+              <!-- Populated by JS -->
+            </div>
+            <div class="input-group">
+              <label class="input-label" for="draft-intro">Your Hook &amp; Context Bridge (introduces Bradbury, Sher, and nonfiction article)</label>
+              <textarea id="draft-intro" class="field-textarea" placeholder="Draft your opening hook and 1-2 bridge sentences introducing Ray Bradbury's 'All Summer in a Day,' Ira Sher's 'The Man in the Well,' and your nonfiction source..." oninput="saveBlueprintText('intro', this.value)"></textarea>
+            </div>
+            <div class="aside-box" style="margin:0; padding:var(--space-sm) var(--space-md);">
+              <span class="index-num">LINKED CENTRAL IDEA (FROM MODULE 03)</span>
+              <p id="blueprint-thesis-echo" style="margin:var(--space-xs) 0 0 0; font-family:var(--font-headline);"></p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Paragraph 2: Body 1 -->
+        <article class="para-card">
+          <div class="para-head">
+            <div class="para-title-wrap">
+              <span class="dossier-pill">02</span>
+              <h3 id="b1-title" style="margin:0;">Body Paragraph 1: Shared Group Behavior (Compare)</h3>
+            </div>
+            <span id="b1-tag" class="tag">Path A &bull; Connection</span>
+          </div>
+          <p id="b1-guide" style="margin:0 0 var(--space-md) 0; font-size:0.875rem; color:var(--on-surface-variant);"></p>
+          <div class="para-fields">
+            <div class="quick-insert-row">
+              <span class="index-num">INSERT PINNED QUOTE:</span>
+              <span id="b1-pin-targets" class="quick-insert-row"></span>
+            </div>
+            <div class="quick-insert-row">
+              <span class="index-num">TRANSITIONS &amp; VOCAB:</span>
+              <button type="button" class="vocab-chip" onclick="insertSnippet('b1', 'Similarly, ')">Similarly,</button>
+              <button type="button" class="vocab-chip" onclick="insertSnippet('b1', 'Both groups demonstrate ')">Both groups demonstrate</button>
+              <button type="button" class="vocab-chip" onclick="insertSnippet('b1', 'collective ')">collective</button>
+              <button type="button" class="vocab-chip" onclick="insertSnippet('b1', 'conformity ')">conformity</button>
+            </div>
+            <div class="input-group">
+              <label class="input-label" for="draft-b1">Topic Sentence, Concrete Evidence (Author #), &amp; Reasoning</label>
+              <textarea id="draft-b1" class="field-textarea" placeholder="Write your Body 1 claim, 2-3 pieces of cited evidence, and reasoning connecting the evidence back to your claim..." oninput="saveBlueprintText('b1', this.value)"></textarea>
+            </div>
+          </div>
+        </article>
+
+        <!-- Paragraph 3: Body 2 -->
+        <article class="para-card">
+          <div class="para-head">
+            <div class="para-title-wrap">
+              <span class="dossier-pill">03</span>
+              <h3 id="b2-title" style="margin:0;">Body Paragraph 2: Bradbury&rsquo;s Distinct Motivation (Contrast)</h3>
+            </div>
+            <span id="b2-tag" class="tag tag-petrol">Path A &bull; Bradbury</span>
+          </div>
+          <p id="b2-guide" style="margin:0 0 var(--space-md) 0; font-size:0.875rem; color:var(--on-surface-variant);"></p>
+          <div class="para-fields">
+            <div class="quick-insert-row">
+              <span class="index-num">INSERT PINNED QUOTE:</span>
+              <span id="b2-pin-targets" class="quick-insert-row"></span>
+            </div>
+            <div class="quick-insert-row">
+              <span class="index-num">TRANSITIONS &amp; VOCAB:</span>
+              <button type="button" class="vocab-chip" onclick="insertSnippet('b2', 'In contrast, ')">In contrast,</button>
+              <button type="button" class="vocab-chip" onclick="insertSnippet('b2', 'retaliate ')">retaliate</button>
+              <button type="button" class="vocab-chip" onclick="insertSnippet('b2', 'arbitrary ')">arbitrary</button>
+              <button type="button" class="vocab-chip" onclick="insertSnippet('b2', 'repercussions ')">repercussions</button>
+            </div>
+            <div class="input-group">
+              <label class="input-label" for="draft-b2">Topic Sentence, Concrete Evidence (Author #), &amp; Reasoning</label>
+              <textarea id="draft-b2" class="field-textarea" placeholder="Write your Body 2 claim, cited evidence from story + nonfiction, and reasoning..." oninput="saveBlueprintText('b2', this.value)"></textarea>
+            </div>
+          </div>
+        </article>
+
+        <!-- Paragraph 4: Body 3 -->
+        <article class="para-card">
+          <div class="para-head">
+            <div class="para-title-wrap">
+              <span class="dossier-pill">04</span>
+              <h3 id="b3-title" style="margin:0;">Body Paragraph 3: Sher&rsquo;s Distinct Motivation (Contrast)</h3>
+            </div>
+            <span id="b3-tag" class="tag tag-pine">Path A &bull; Sher</span>
+          </div>
+          <p id="b3-guide" style="margin:0 0 var(--space-md) 0; font-size:0.875rem; color:var(--on-surface-variant);"></p>
+          <div class="para-fields">
+            <div class="quick-insert-row">
+              <span class="index-num">INSERT PINNED QUOTE:</span>
+              <span id="b3-pin-targets" class="quick-insert-row"></span>
+            </div>
+            <div class="quick-insert-row">
+              <span class="index-num">TRANSITIONS &amp; VOCAB:</span>
+              <button type="button" class="vocab-chip" onclick="insertSnippet('b3', 'Whereas Bradbury&rsquo;s characters..., Sher&rsquo;s group ')">Whereas...</button>
+              <button type="button" class="vocab-chip" onclick="insertSnippet('b3', 'anonymity ')">anonymity</button>
+              <button type="button" class="vocab-chip" onclick="insertSnippet('b3', 'undermine ')">undermine</button>
+              <button type="button" class="vocab-chip" onclick="insertSnippet('b3', 'attenuate ')">attenuate</button>
+            </div>
+            <div class="input-group">
+              <label class="input-label" for="draft-b3">Topic Sentence, Concrete Evidence (Author #), &amp; Reasoning</label>
+              <textarea id="draft-b3" class="field-textarea" placeholder="Write your Body 3 claim, cited evidence from story + nonfiction, and reasoning..." oninput="saveBlueprintText('b3', this.value)"></textarea>
+            </div>
+          </div>
+        </article>
+
+        <!-- Paragraph 5: Conclusion -->
+        <article class="para-card">
+          <div class="para-head">
+            <div class="para-title-wrap">
+              <span class="dossier-pill">05</span>
+              <h3 style="margin:0;">Conclusion: Restate Thesis &amp; Wider Lesson</h3>
+            </div>
+            <span class="tag">Synthesis</span>
+          </div>
+          <div class="para-fields">
+            <div class="input-group">
+              <label class="input-label" for="conc-style">Choose Conclusion Move</label>
+              <select id="conc-style" class="field-select" onchange="updateConclusionStarter()">
+                <option value="echo">1. Inverted Echo (Restate thesis in fresh words, then zoom out)</option>
+                <option value="question">2. Reflective Question (Challenge the reader to reflect on conformity)</option>
+                <option value="mirror">3. Modern Mirror (Connect group dynamics to real-world bystanders today)</option>
+              </select>
+            </div>
+            <div id="conc-exemplar-box" class="aside-box" style="margin:0; padding:var(--space-sm) var(--space-md);"></div>
+            <div class="input-group">
+              <label class="input-label" for="draft-conc">Your Restated Thesis &amp; Final Takeaway (No new quotes; 3rd-person)</label>
+              <textarea id="draft-conc" class="field-textarea" placeholder="Restate your central idea in fresh phrasing and explain what both stories reveal about resisting the crowd..." oninput="saveBlueprintText('conc', this.value)"></textarea>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div style="margin-top:var(--space-md); display:flex; flex-wrap:wrap; gap:var(--space-sm); align-items:center;">
+        <button type="button" class="btn btn-primary" onclick="toggleCompiledOutline()">Preview Full Compiled Outline</button>
+        <button type="button" class="btn btn-secondary" onclick="exportEssayPlan()">Download Essay Plan (.txt)</button>
+      </div>
+      <div id="compiled-outline" class="compiled-outline hidden" aria-live="polite"></div>
+    </section>
+
+    <!-- MODULE 05: MLA CITATION GUIDE & CHECKLIST -->
+    <section id="mod-mla">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">05 MLA &amp; CONVENTIONS</span>
+          <span class="dossier-meta">IN-TEXT CITATION RULES &amp; ACADEMIC CHECKLIST</span>
+        </div>
+      </div>
+      <h2 class="section-title">MLA In-Text Citation Guide &amp; Writing Checklist</h2>
+      <p class="section-deck">Cite every quote and paraphrase by author last name and paragraph number—with no comma inside the parentheses and the period placed outside.</p>
+
+      <div class="mla-grid">
+        <div class="figure-card">
+          <h3>MLA Citation Moves for Unit 1 Texts</h3>
+          <table class="mla-table">
+            <thead>
+              <tr>
+                <th>Citation Move</th>
+                <th>Pattern</th>
+                <th>Bradbury / Sher / Nonfiction Exemplar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Direct Quote</strong></td>
+                <td><span class="code-sample">&ldquo;Quote&rdquo; (Author #).</span></td>
+                <td>The children &ldquo;could not meet each other&rsquo;s glances&rdquo; (Bradbury 81).</td>
+              </tr>
+              <tr>
+                <td><strong>Signal Phrase</strong></td>
+                <td><span class="code-sample">Author notes, &ldquo;Quote&rdquo; (Author #).</span></td>
+                <td>Sher&rsquo;s narrator admits, &ldquo;I wanted to throw stones, dirt down the well&rdquo; (Sher 55).</td>
+              </tr>
+              <tr>
+                <td><strong>Paraphrase</strong></td>
+                <td><span class="code-sample">Summary idea (Author #).</span></td>
+                <td>Groups diminish personal responsibility for shared harm (Trafton 3).</td>
+              </tr>
+              <tr>
+                <td><strong>Organization</strong></td>
+                <td><span class="code-sample">Source insight (Org #).</span></td>
+                <td>People publicly conform to fit in even against private judgment (Exploratorium 5).</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3 style="margin-top:var(--space-lg);">Interactive MLA Citation Formatter</h3>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(170px, 100%), 1fr)); gap:var(--space-sm); align-items:end; margin-top:var(--space-sm);">
+            <div class="input-group">
+              <label class="input-label" for="mla-author">Source Author</label>
+              <select id="mla-author" class="field-select" onchange="buildMlaCitation()">
+                <option value="Bradbury">Ray Bradbury (All Summer in a Day)</option>
+                <option value="Sher">Ira Sher (The Man in the Well)</option>
+                <option value="Trafton">Anne Trafton (When Good People...)</option>
+                <option value="Exploratorium">Exploratorium (The Effect of Others)</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label class="input-label" for="mla-move">Citation Move</label>
+              <select id="mla-move" class="field-select" onchange="buildMlaCitation()">
+                <option value="quote">Direct Quote</option>
+                <option value="signal">Signal Phrase + Quote</option>
+                <option value="paraphrase">Paraphrase</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label class="input-label" for="mla-para">Paragraph #</label>
+              <input type="number" id="mla-para" class="field-input" value="43" min="1" max="120" oninput="buildMlaCitation()">
+            </div>
+          </div>
+          <div class="input-group" style="margin-top:var(--space-sm);">
+            <label class="input-label" for="mla-text">Quote or Paraphrased Idea</label>
+            <input type="text" id="mla-text" class="field-input" value="smiling, they turned and went out and back down the tunnel" oninput="buildMlaCitation()">
+          </div>
+          <div id="mla-output" class="aside-box" style="margin-top:var(--space-sm); font-family:var(--font-headline); font-size:1.05rem;"></div>
+
+          <div class="quiz-card">
+            <span class="index-num">SPOT-THE-ERROR DIAGNOSTIC</span>
+            <p id="mla-quiz-prompt" style="margin:var(--space-xs) 0; font-weight:600;"></p>
+            <div id="mla-quiz-options" class="quiz-options"></div>
+            <p id="mla-quiz-feedback" style="margin:var(--space-sm) 0 0 0; font-size:0.875rem;" aria-live="polite"></p>
+            <button type="button" class="btn btn-secondary btn-sm" style="margin-top:var(--space-sm);" onclick="nextMlaQuestion()">Next Practice Item</button>
+          </div>
+        </div>
+
+        <div class="figure-card">
+          <h3>Academic Writing &amp; Unit 1 Checklist</h3>
+          <p style="font-size:0.875rem; color:var(--on-surface-variant); margin-top:0;">Verify each requirement before drafting your final literary analysis essay.</p>
+
+          <div id="academic-checklist">
+            <label class="checklist-row">
+              <input type="checkbox" data-check-id="c1" onchange="toggleChecklistItem('c1', this.checked)">
+              <span><strong>3rd-Person Voice Only:</strong> Eliminated &ldquo;I,&rdquo; &ldquo;me,&rdquo; &ldquo;my,&rdquo; &ldquo;we,&rdquo; and &ldquo;you&rdquo; throughout the essay.</span>
+            </label>
+            <label class="checklist-row">
+              <input type="checkbox" data-check-id="c2" onchange="toggleChecklistItem('c2', this.checked)">
+              <span><strong>Literary Present Tense:</strong> Story events are described in present tense (e.g., &ldquo;William pushes,&rdquo; &ldquo;the children leave&rdquo;).</span>
+            </label>
+            <label class="checklist-row">
+              <input type="checkbox" data-check-id="c3" onchange="toggleChecklistItem('c3', this.checked)">
+              <span><strong>Formal Academic Tone:</strong> Avoided contractions (<em>don&rsquo;t</em>, <em>can&rsquo;t</em>), slang, and casual filler.</span>
+            </label>
+            <label class="checklist-row">
+              <input type="checkbox" data-check-id="c4" onchange="toggleChecklistItem('c4', this.checked)">
+              <span><strong>MLA Titles &amp; Paragraph Citations:</strong> Short stories and articles appear in quotation marks, with <span class="code-sample">(Author #)</span> punctuation.</span>
+            </label>
+            <label class="checklist-row">
+              <input type="checkbox" data-check-id="c5" onchange="toggleChecklistItem('c5', this.checked)">
+              <span><strong>Source Synthesis Balance:</strong> Integrated concrete details from both fiction texts plus at least one nonfiction text.</span>
+            </label>
+            <label class="checklist-row">
+              <input type="checkbox" data-check-id="c6" onchange="toggleChecklistItem('c6', this.checked)">
+              <span><strong>Unit Vocabulary &amp; Transitions:</strong> Used compare/contrast transitions and unit terms (<em>anonymity</em>, <em>collective</em>, <em>repercussions</em>, <em>arbitrary</em>, <em>attenuate</em>).</span>
+            </label>
+          </div>
+
+          <div class="aside-box" style="margin-top:var(--space-md);">
+            <span class="index-num">KEY UNIT VOCABULARY BANK</span>
+            <p style="margin:var(--space-xs) 0 0 0; font-size:0.875rem; line-height:1.6;">
+              <strong>anonymity</strong> (being unnamed/unidentified) &bull;
+              <strong>collective</strong> (done by people acting as a group) &bull;
+              <strong>repercussions</strong> (unintended consequences) &bull;
+              <strong>retaliate</strong> (strike back in return) &bull;
+              <strong>undermine</strong> (weaken gradually) &bull;
+              <strong>arbitrary</strong> (based on random whim, not reason) &bull;
+              <strong>attenuate</strong> (reduce the force or effect of)
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer-note">
+      <span>Sources: Ray Bradbury (&ldquo;All Summer in a Day,&rdquo; 1954), Ira Sher (&ldquo;The Man in the Well,&rdquo; 1995), Exploratorium (&ldquo;The Effect of Others&rdquo;), Anne Trafton (&ldquo;When Good People Do Bad Things,&rdquo; MIT News 2014), and Grade 9 Unit 1 Essay Planning Guides.</span>
+      <span>Progress auto-saves via Notebook App state.</span>
+    </footer>
+  </div>
+
+  <api-shim></api-shim>
+  <script>
+    const LENSES = [
+      {
+        id: `conformity-fit`,
+        source: `Exploratorium`,
+        title: `Conformity & Desire to Fit In`,
+        cite: `Exploratorium 2, 5`,
+        definition: `Changing behavior to match what others are doing—driven either by uncertainty or the powerful desire to be liked and accepted by the group.`,
+        quote: `The desire to fit in is so strong that people sometimes conform to a group consensus even when it goes against their own judgment — at least in public. In private, they’re much more likely to follow their own minds.`,
+        bradburyApp: `When William announces "Nothing's happening today," the classmates look at him and immediately laugh and shake their heads ("Nothing, nothing!"), siding with the crowd against Margot (Bradbury 38–39).`,
+        sherApp: `The narrator admits "we decided not to help him" (Sher 2) because each child suppresses private sympathy to match the group's silence around the well.`
+      },
+      {
+        id: `pluralistic-ignorance`,
+        source: `Exploratorium`,
+        title: `Pluralistic Ignorance & Bystander Effect`,
+        cite: `Exploratorium 4`,
+        definition: `A group misinterpretation where individuals assume no action is needed because no one else looks concerned—making help less likely as group size grows.`,
+        quote: `It’s a paradox: the more people who witness an emergency, the less chance that any of them will act, because they’re all conforming to the group’s behavior.`,
+        bradburyApp: `Not a single classmate stands up to William when he shoves Margot and suggests locking her in the closet; each child watches the others comply and follows suit (Bradbury 41–43).`,
+        sherApp: `Even when the man calls individual names like Arthur, Jason, and Wendy, everyone stares silently and waits because no one wants to be the first to break the collective inaction (Sher 54–55).`
+      },
+      {
+        id: `compliance-foot`,
+        source: `Exploratorium`,
+        title: `Compliance & Escalation (Foot-in-the-Door)`,
+        cite: `Exploratorium 6–7`,
+        definition: `Responding to a direct request from someone else; agreeing to a small initial act makes a person more likely to comply with a larger, harsher request next.`,
+        quote: `When the pressure from others gets more explicit, conformity blends into another type of social influence: compliance, when we respond to a direct request made by someone else.`,
+        bradburyApp: `The children first join William's verbal mockery ("Nothing, nothing!"), which escalates immediately into complying with his direct call: "Hey, everyone, let's put her in a closet before teacher comes!" (Bradbury 39, 41).`,
+        sherApp: `The children initially bring the man small items and ask "stupid questions" (Sher 31), escalating from keeping a secret for one afternoon to leaving him trapped indefinitely.`
+      },
+      {
+        id: `obedience-authority`,
+        source: `Exploratorium`,
+        title: `Obedience vs. Peer Influence`,
+        cite: `Exploratorium 8–9`,
+        definition: `Responding to a demand issued by an authority figure—useful as a contrast point showing that Bradbury's and Sher's children act without an adult ordering cruelty.`,
+        quote: `The pressure to conform in such situations can be extreme, and obedience can have a dark side.`,
+        bradburyApp: `Crucially, the teacher is absent when the children lock Margot away ("Where's teacher?" "She'll be back"); they obey peer instigator William, not an authority figure (Bradbury 19–20, 43).`,
+        sherApp: `No adult forces the children to abandon the man; in fact, they hide their actions from adults like "Aaron's dad" out of fear of peer exclusion rather than obedience (Sher 55).`
+      },
+      {
+        id: `us-vs-them`,
+        source: `Trafton`,
+        title: `"Us" vs. "Them" Intergroup Hostility`,
+        cite: `Trafton 2, 9`,
+        definition: `Drawing a boundary between an in-group and an outsider shifts human priorities away from fairness and increases willingness to harm the outsider.`,
+        quote: `Although humans exhibit strong preferences for equity and moral prohibitions against harm in many contexts, people’s priorities change when there is an ‘us’ and a ‘them.’`,
+        bradburyApp: `Margot's Ohio memories, refusal to shower, and possible return to Earth mark her as "them"; the children hate "her pale snow face, her waiting silence, her thinness, and her possible future" (Bradbury 32–33).`,
+        sherApp: `The man trapped underground becomes an unseen "other" to the group standing above him, turning a human crisis into an "us" versus "him" power dynamic.`
+      },
+      {
+        id: `anonymity-responsibility`,
+        source: `Trafton`,
+        title: `Anonymity & Diminished Responsibility`,
+        cite: `Trafton 3, 6`,
+        definition: `Being inside a group makes individuals feel harder to single out and less personally accountable for collective harm.`,
+        quote: `When people are in a group, they feel more anonymous, and less likely to be caught doing something wrong. They may also feel a diminished sense of personal responsibility for collective actions.`,
+        bradburyApp: `When the teacher asks "Are we all here?", the whole class answers "Yes!" as one anonymous chorus, hiding their individual guilt behind the group (Bradbury 46–47).`,
+        sherApp: `The children's anonymity is their shield; once the man calls them by name ("Arthur," "Jason," "Wendy"), the narrator feels a "spasm of anger" and is relieved at dusk to be spared seeing each other's faces (Sher 52, 54–57).`
+      },
+      {
+        id: `mpfc-morals`,
+        source: `Trafton`,
+        title: `"Losing Touch" with Private Morals (mPFC)`,
+        cite: `Trafton 4–5, 13`,
+        definition: `Neuroscience fMRI scans show reduced activity in the medial prefrontal cortex (self-reflection) during group competition, correlating with greater harm toward outsiders.`,
+        quote: `A group of people will often engage in actions that are contrary to the private moral standards of each individual in that group.`,
+        bradburyApp: `Swept into a collective mood, the children lock Margot away and walk out "smiling" (Bradbury 43)—only recovering their private moral shock hours later when they stand solemn and pale (Bradbury 81).`,
+        sherApp: `In the group, the narrator wants to "throw stones, dirt down the well to crush out his voice" (Sher 55)—an impulse contrary to individual decency that vanishes when alone.`
+      },
+      {
+        id: `reframing-attenuate`,
+        source: `Trafton`,
+        title: `Reframing Harm & Moral Reflection`,
+        cite: `Trafton 6`,
+        definition: `Groups reframe cruelty as harmless or "necessary," whereas explicitly reflecting on personal moral standards helps reduce ("attenuate") mob mentality.`,
+        quote: `Groups also promote anonymity, diminish personal responsibility, and encourage reframing harmful actions as ‘necessary for the greater good.’`,
+        bradburyApp: `William reframes locking Margot in the closet as "All a joke!" (Bradbury 41), allowing the children to treat cruelty as a game until the rain returns and forces silent reflection (Bradbury 81–88).`,
+        sherApp: `Only at the end of the day, when the man asks "Why didn't you tell anyone?" (Sher 56), are the children forced to confront their own moral failure.`
+      }
+    ];
+
+    const EVIDENCE_PAIRS = [
+      {
+        id: `ev-1`,
+        category: `motivation`,
+        title: `01 • Target Selection vs. Accidental Trap`,
+        bridge: `Contrast: Bradbury's group targets Margot's difference and envied future; Sher's group encounters a trapped stranger.`,
+        bradbury: {
+          quote: `And so, the children hated her for all these reasons of big and little consequence. They hated her pale snow face, her waiting silence, her thinness, and her possible future.`,
+          cite: `(Bradbury 33)`,
+          note: `Reveals resentment and "us vs. them" exclusion (Trafton 2) as the root cause of the children's cruelty.`
+        },
+        sher: {
+          quote: `I think it’s important that we decided not to help him.`,
+          cite: `(Sher 2)`,
+          note: `Establishes from the opening that the children are equally responsible for choosing inaction rather than acting out of prior hatred.`
+        }
+      },
+      {
+        id: `ev-2`,
+        category: `motivation`,
+        title: `02 • Mockery & Denial vs. Idle Curiosity`,
+        bridge: `Compare: Both groups unite around excluding or ignoring the victim's distress before taking decisive action.`,
+        bradbury: {
+          quote: `They all blinked at him and then, understanding, laughed and shook their heads. “Nothing, nothing!”`,
+          cite: `(Bradbury 39)`,
+          note: `Shows conformity in action (Exploratorium 5): the classmates take their social cue directly from William to deny Margot's truth.`
+        },
+        sher: {
+          quote: `We all asked such stupid questions, and he wouldn’t answer anyone.`,
+          cite: `(Sher 31)`,
+          note: `Demonstrates how the group treats the man's crisis as a collective spectacle rather than an emergency requiring help (Exploratorium 4).`
+        }
+      },
+      {
+        id: `ev-3`,
+        category: `action`,
+        title: `03 • Physical Exclusion vs. Collective Silence`,
+        bridge: `Compare: Both groups act as a single coordinated unit ("surged," "all waited") to trap their victim.`,
+        bradbury: {
+          quote: `They surged about her, caught her up and bore her, protesting, and then pleading, and then crying, back into a tunnel, a room, a closet, where they slammed and locked the door.`,
+          cite: `(Bradbury 43)`,
+          note: `Active physical mob behavior driven by William's instigation ("Hey, everyone, let's put her in a closet").`
+        },
+        sher: {
+          quote: `When Aaron was done, we all waited for the man in the well to speak up... We had to wait for an hour, and today no one wanted to leave to lie in the shade or hide in the velvet movie seats.`,
+          cite: `(Sher 53)`,
+          note: `Passive collective entrapment: the children stay bound together by peer presence and pluralistic ignorance (Exploratorium 4).`
+        }
+      },
+      {
+        id: `ev-4`,
+        category: `anonymity`,
+        title: `04 • Smiling Deception vs. Fear of Being Named`,
+        bridge: `Contrast: Bradbury's group hides their act from the teacher behind a group lie; Sher's group panics when the man breaks their anonymity.`,
+        bradbury: {
+          quote: `Then, smiling, they turned and went out and back down the tunnel, just as the teacher arrived.`,
+          cite: `(Bradbury 43)`,
+          note: `Supported by the class answering "Yes!" to "Are we all here?" (Bradbury 46–47)—group cover suppresses private guilt (Trafton 4).`
+        },
+        sher: {
+          quote: `When he said my name, I felt the water clouding my eyes, and I wanted to throw stones, dirt down the well to crush out his voice.`,
+          cite: `(Sher 55)`,
+          note: `Exposes how group anonymity (Trafton 3) protects the children; losing anonymity triggers anger because personal responsibility returns.`
+        }
+      },
+      {
+        id: `ev-5`,
+        category: `anonymity`,
+        title: `05 • Shuddering Together in Shared Exposure`,
+        bridge: `Compare: Individual identity dissolves in the crowd—until someone forces personal accountability.`,
+        bradbury: {
+          quote: `“She’s still in the closet where we locked her.”`,
+          cite: `(Bradbury 79)`,
+          note: `Notice the pronoun "we"—every child shares collective responsibility for locking Margot away during the sun.`
+        },
+        sher: {
+          quote: `I knew I couldn’t answer, myself, if the man in the well called me by name. He called a few of us, and I watched the shudder move from face to face.`,
+          cite: `(Sher 54)`,
+          note: `Illustrates how fear spreads across the group when individual identities ("Arthur," "Jason," "Wendy") pierce their collective shield.`
+        }
+      },
+      {
+        id: `ev-6`,
+        category: `aftermath`,
+        title: `06 • Avoiding Each Other's Eyes in Shame`,
+        bridge: `Compare: Once the collective spell breaks, both groups suffer silent shame and cannot face one another.`,
+        bradbury: {
+          quote: `They could not meet each other’s glances. Their faces were solemn and pale. They looked at their hands and feet, their faces down.`,
+          cite: `(Bradbury 81–82)`,
+          note: `Once individual conscience returns, the children unlock the closet slowly—yet Margot has lost her only summer for seven years.`
+        },
+        sher: {
+          quote: `Before we left that day, as we were rising quietly and looking at the dark shadows of the trees we had to move through to reach our homes, he said, “Why didn’t you tell anyone?”`,
+          cite: `(Sher 56)`,
+          note: `The children walk away in silence, glad in the dusk to be "spared the detail of having to see and read each other's faces" (Sher 56–57).`
+        }
+      }
+    ];
+
+    const HOOK_MODELS = {
+      universal: {
+        label: `Model • Universal Truth`,
+        text: `“Sometimes it is hard to understand how or why good people do bad things when they are part of a crowd.”`
+      },
+      research: {
+        label: `Model • Research Spotlight`,
+        text: `“Neuroscience and psychology research reveal that belonging to a group often clouds private moral judgment and diminishes personal accountability.”`
+      },
+      juxtaposition: {
+        label: `Model • Text Juxtaposition`,
+        text: `“Whether crowded inside an underground schoolroom on Venus or gathered around an abandoned well at dusk, ordinary children can turn cruel when guided by a group.”`
+      }
+    };
+
+    const CONCLUSION_MODELS = {
+      echo: {
+        label: `Model • Inverted Echo`,
+        text: `“Ultimately, while envy drives Bradbury’s classmates to exclude Margot and anonymity traps Sher’s children in silent inaction, both stories prove that surrendering individual conscience to a group leads to irreversible harm.”`
+      },
+      question: {
+        label: `Model • Reflective Question`,
+        text: `“Together, Bradbury and Sher leave readers with a pressing question: when the crowd chooses cruelty or silence, who will step forward to break the consensus?”`
+      },
+      mirror: {
+        label: `Model • Modern Mirror`,
+        text: `“From school hallways to bystander situations in modern communities, understanding the pull of conformity and anonymity is essential to protecting the vulnerable from the crowd.”`
+      }
+    };
+
+    const MLA_QUIZ = [
+      {
+        prompt: `Which citation correctly punctuates a direct quote from paragraph 43 of Ray Bradbury’s story?`,
+        options: [
+          `The children lock the door and walk away “smiling.” (Bradbury, 43)`,
+          `The children lock the door and walk away “smiling” (Bradbury 43).`,
+          `The children lock the door and walk away “smiling” (Bradbury, p. 43).`
+        ],
+        correctIdx: 1,
+        explanation: `Correct! MLA uses (Author #) with no comma and no "p.", and the period goes outside the closing parenthesis after the quotation marks.`
+      },
+      {
+        prompt: `How should a paraphrase from paragraph 3 of Anne Trafton’s article be cited?`,
+        options: [
+          `People feel less accountable when acting inside a crowd (Trafton 3).`,
+          `People feel less accountable when acting inside a crowd (Trafton).`,
+          `People feel less accountable when acting inside a crowd. (Trafton 3)`
+        ],
+        correctIdx: 0,
+        explanation: `Correct! Even without quotation marks, paraphrases must be credited with (Author #) before the final period.`
+      },
+      {
+        prompt: `Which sentence correctly uses a signal phrase with Ira Sher’s text?`,
+        options: [
+          `Sher’s narrator recalls, “I wanted to throw stones, dirt down the well.” (55)`,
+          `Sher’s narrator recalls, “I wanted to throw stones, dirt down the well” (Sher 55).`,
+          `Sher’s narrator recalls, “I wanted to throw stones, dirt down the well” (Ira Sher, 55).`
+        ],
+        correctIdx: 1,
+        explanation: `Correct! Use only the author's last name and paragraph number inside parentheses, with the period after the closing parenthesis.`
+      }
+    ];
+
+    let appState = {
+      activeLensId: `conformity-fit`,
+      lensFilter: `all`,
+      evidenceCat: `all`,
+      pinnedIds: [],
+      thesis: {
+        compare: ``,
+        bradbury: ``,
+        sher: ``,
+        lens: ``
+      },
+      essayPath: `A`,
+      hookStyle: `universal`,
+      concStyle: `echo`,
+      drafts: {
+        intro: ``,
+        b1: ``,
+        b2: ``,
+        b3: ``,
+        conc: ``
+      },
+      checklist: {
+        c1: false, c2: false, c3: false, c4: false, c5: false, c6: false
+      },
+      quizIndex: 0
+    };
+
+    let saveTimer = null;
+
+    function scheduleSave() {
+      const statusEl = document.getElementById(`save-status`);
+      if (statusEl) statusEl.textContent = `Saving…`;
+      if (saveTimer) clearTimeout(saveTimer);
+      saveTimer = setTimeout(async () => {
+        try {
+          if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === `function`) {
+            await window.notebookAppApi.setAppState(appState);
+          }
+          if (statusEl) statusEl.textContent = `Saved`;
+        } catch (err) {
+          if (statusEl) statusEl.textContent = `Local session`;
+        }
+      }, 220);
+    }
+
+    function filterLenses(source, btn) {
+      appState.lensFilter = source;
+      document.querySelectorAll(`[data-lens-source]`).forEach(el => {
+        el.classList.toggle(`active`, el === btn);
+      });
+      renderLensList();
+      scheduleSave();
+    }
+
+    function selectLens(id) {
+      appState.activeLensId = id;
+      renderLensList();
+      renderLensDetail();
+      scheduleSave();
+    }
+
+    function renderLensList() {
+      const listEl = document.getElementById(`lens-list`);
+      if (!listEl) return;
+      const filtered = appState.lensFilter === `all`
+        ? LENSES
+        : LENSES.filter(item => item.source === appState.lensFilter);
+
+      if (!filtered.some(item => item.id === appState.activeLensId) && filtered.length > 0) {
+        appState.activeLensId = filtered[0].id;
+      }
+
+      listEl.innerHTML = filtered.map(item => {
+        const isActive = item.id === appState.activeLensId;
+        const badgeClass = item.source === `Exploratorium` ? `tag tag-petrol` : `tag`;
+        return `
+          <button type="button" class="lens-item ${isActive ? `active` : ``}" role="option" aria-selected="${isActive}" onclick="selectLens('${item.id}')">
+            <div class="lens-item-head">
+              <span class="lens-item-title">${item.title}</span>
+              <span class="${badgeClass}">${item.cite}</span>
+            </div>
+            <span class="lens-item-sub">${item.definition}</span>
+          </button>
+        `;
+      }).join(``);
+    }
+
+    function renderLensDetail() {
+      const detailEl = document.getElementById(`lens-detail`);
+      if (!detailEl) return;
+      const lens = LENSES.find(l => l.id === appState.activeLensId) || LENSES[0];
+      const isPinned = appState.pinnedIds.includes(lens.id);
+      const sourceLabel = lens.source === `Exploratorium`
+        ? `“The Effect of Others” (Exploratorium)`
+        : `“When Good People Do Bad Things” (Anne Trafton)`;
+
+      detailEl.innerHTML = `
+        <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-start; gap:var(--space-sm);">
+          <div>
+            <span class="index-num">${sourceLabel}</span>
+            <h3 style="margin-top:var(--space-xs); font-size:1.35rem;">${lens.title}</h3>
+          </div>
+          <button type="button" class="btn btn-pin ${isPinned ? `pinned` : ``}" onclick="togglePin('${lens.id}')">
+            ${isPinned ? `Pinned to Essay` : `+ Pin Lens`}
+          </button>
+        </div>
+        <p style="margin:var(--space-sm) 0 0 0; color:var(--on-surface-variant);">${lens.definition}</p>
+        <blockquote class="quote-callout">
+          “${lens.quote}”
+          <span class="quote-cite">MLA Citation: (${lens.cite})</span>
+        </blockquote>
+        <div class="dual-app-grid">
+          <div class="app-box">
+            <div class="app-box-label">In Bradbury&rsquo;s &ldquo;All Summer in a Day&rdquo;</div>
+            <p style="margin:0; font-size:0.875rem;">${lens.bradburyApp}</p>
+          </div>
+          <div class="app-box sher">
+            <div class="app-box-label">In Sher&rsquo;s &ldquo;The Man in the Well&rdquo;</div>
+            <p style="margin:0; font-size:0.875rem;">${lens.sherApp}</p>
+          </div>
+        </div>
+      `;
+    }
+
+    function filterEvidenceCat(cat, btn) {
+      appState.evidenceCat = cat;
+      document.querySelectorAll(`[data-ev-cat]`).forEach(el => {
+        el.classList.toggle(`active`, el === btn);
+      });
+      renderEvidenceMap();
+      scheduleSave();
+    }
+
+    function renderEvidenceMap() {
+      const container = document.getElementById(`evidence-pair-list`);
+      const searchInput = document.getElementById(`evidence-search`);
+      if (!container) return;
+
+      const query = searchInput ? searchInput.value.trim().toLowerCase() : ``;
+      const filtered = EVIDENCE_PAIRS.filter(pair => {
+        const catMatch = appState.evidenceCat === `all` || pair.category === appState.evidenceCat;
+        if (!catMatch) return false;
+        if (!query) return true;
+        const haystack = `${pair.title} ${pair.bridge} ${pair.bradbury.quote} ${pair.bradbury.cite} ${pair.bradbury.note} ${pair.sher.quote} ${pair.sher.cite} ${pair.sher.note}`.toLowerCase();
+        return haystack.includes(query);
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="figure-card">
+            <p style="margin:0;">No evidence pairs match your current filter or search term. Try clearing the search box or switching to <strong>All Pairs</strong>.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(pair => {
+        const bId = `${pair.id}-bradbury`;
+        const sId = `${pair.id}-sher`;
+        const bPinned = appState.pinnedIds.includes(bId);
+        const sPinned = appState.pinnedIds.includes(sId);
+
+        return `
+          <article class="evidence-pair">
+            <div class="pair-header">
+              <span class="pair-title">${pair.title}</span>
+              <span class="tag tag-petrol">${pair.category}</span>
+            </div>
+            <div class="pair-columns">
+              <div class="pair-col">
+                <div>
+                  <div class="story-tag-row">
+                    <span class="index-num">BRADBURY &bull; ALL SUMMER IN A DAY</span>
+                    <span class="tag">${pair.bradbury.cite}</span>
+                  </div>
+                  <p class="quote-text">&ldquo;${pair.bradbury.quote}&rdquo;</p>
+                  <p class="quote-analysis">${pair.bradbury.note}</p>
+                </div>
+                <div>
+                  <button type="button" class="btn btn-pin ${bPinned ? `pinned` : ``}" onclick="togglePin('${bId}')">
+                    ${bPinned ? `Pinned Bradbury Quote` : `+ Pin Bradbury Quote`}
+                  </button>
+                </div>
+              </div>
+              <div class="pair-col">
+                <div>
+                  <div class="story-tag-row">
+                    <span class="index-num">SHER &bull; THE MAN IN THE WELL</span>
+                    <span class="tag tag-pine">${pair.sher.cite}</span>
+                  </div>
+                  <p class="quote-text">&ldquo;${pair.sher.quote}&rdquo;</p>
+                  <p class="quote-analysis">${pair.sher.note}</p>
+                </div>
+                <div>
+                  <button type="button" class="btn btn-pin ${sPinned ? `pinned` : ``}" onclick="togglePin('${sId}')">
+                    ${sPinned ? `Pinned Sher Quote` : `+ Pin Sher Quote`}
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="pair-footer">
+              <span class="bridge-note">${pair.bridge}</span>
+            </div>
+          </article>
+        `;
+      }).join(``);
+    }
+
+    function resolvePinnedItem(pinId) {
+      const lens = LENSES.find(l => l.id === pinId);
+      if (lens) {
+        return {
+          id: pinId,
+          source: lens.source,
+          label: `${lens.title} (${lens.cite})`,
+          snippet: `As ${lens.source} explains, “${lens.quote}” (${lens.cite}).`
+        };
+      }
+      for (const pair of EVIDENCE_PAIRS) {
+        if (`${pair.id}-bradbury` === pinId) {
+          return {
+            id: pinId,
+            source: `Bradbury`,
+            label: `Bradbury ${pair.bradbury.cite}`,
+            snippet: `In “All Summer in a Day,” “${pair.bradbury.quote}” ${pair.bradbury.cite}.`
+          };
+        }
+        if (`${pair.id}-sher` === pinId) {
+          return {
+            id: pinId,
+            source: `Sher`,
+            label: `Sher ${pair.sher.cite}`,
+            snippet: `In “The Man in the Well,” “${pair.sher.quote}” ${pair.sher.cite}.`
+          };
+        }
+      }
+      return null;
+    }
+
+    function togglePin(pinId) {
+      const idx = appState.pinnedIds.indexOf(pinId);
+      if (idx >= 0) {
+        appState.pinnedIds.splice(idx, 1);
+      } else {
+        appState.pinnedIds.push(pinId);
+      }
+      renderLensDetail();
+      renderEvidenceMap();
+      renderPinnedTray();
+      renderBlueprintPinButtons();
+      updateKpis();
+      scheduleSave();
+    }
+
+    function renderPinnedTray() {
+      const chipsEl = document.getElementById(`pinned-chips`);
+      const badgeEl = document.getElementById(`pinned-balance-badge`);
+      if (!chipsEl || !badgeEl) return;
+
+      const resolved = appState.pinnedIds.map(resolvePinnedItem).filter(Boolean);
+      badgeEl.textContent = `${resolved.length} Pinned`;
+
+      if (resolved.length === 0) {
+        chipsEl.innerHTML = `<span style="font-size:0.875rem; color:var(--on-surface-variant);">No quotes or lenses pinned yet. Click <strong>+ Pin</strong> on any quote or psychological lens above.</span>`;
+        return;
+      }
+
+      chipsEl.innerHTML = resolved.map(item => `
+        <span class="pinned-chip">
+          <strong>${item.label}</strong>
+          <button type="button" class="chip-remove" aria-label="Remove ${item.label}" onclick="togglePin('${item.id}')">&times;</button>
+        </span>
+      `).join(``);
+    }
+
+    function applyThesisPreset(field, val) {
+      if (!val) return;
+      const input = document.getElementById(`thesis-${field}`);
+      if (input) {
+        input.value = val;
+        updateThesisFromInputs();
+      }
+    }
+
+    function loadThesisPreset() {
+      const defaults = {
+        compare: `both groups of children unite to harm an isolated individual who depends on them`,
+        bradbury: `the children on Venus are motivated by envy of Margot’s memories and “us vs. them” hostility toward her differences`,
+        sher: `the children at the well leave the man trapped out of fear of breaking group anonymity and going against their peers`,
+        lens: `illustrating how conformity and diminished personal responsibility override individual morality`
+      };
+      Object.keys(defaults).forEach(k => {
+        const el = document.getElementById(`thesis-${k}`);
+        if (el) el.value = defaults[k];
+      });
+      updateThesisFromInputs();
+    }
+
+    function clearThesisFields() {
+      [`compare`, `bradbury`, `sher`, `lens`].forEach(k => {
+        const el = document.getElementById(`thesis-${k}`);
+        if (el) el.value = ``;
+        const sel = document.getElementById(`thesis-${k}-preset`);
+        if (sel) sel.selectedIndex = 0;
+      });
+      updateThesisFromInputs();
+    }
+
+    function getAssembledThesisText() {
+      const t = appState.thesis;
+      if (!t.compare.trim() && !t.bradbury.trim() && !t.sher.trim()) return ``;
+      const c = t.compare.trim() || `[shared group behavior]`;
+      const b = t.bradbury.trim() || `[Bradbury group motivation]`;
+      const s = t.sher.trim() || `[Sher group motivation]`;
+      const l = t.lens.trim() ? `, ${t.lens.trim().replace(/\.$/, ``)}` : ``;
+      return `In Ray Bradbury’s “All Summer in a Day” and Ira Sher’s “The Man in the Well,” ${c}. Although both groups surrender to peer influence, their motivations differ: ${b}, whereas ${s}${l}.`;
+    }
+
+    function updateThesisFromInputs() {
+      [`compare`, `bradbury`, `sher`, `lens`].forEach(k => {
+        const el = document.getElementById(`thesis-${k}`);
+        if (el) appState.thesis[k] = el.value;
+      });
+      renderThesisPreview();
+      updateKpis();
+      scheduleSave();
+    }
+
+    function renderThesisPreview() {
+      const previewEl = document.getElementById(`thesis-preview`);
+      const checksEl = document.getElementById(`thesis-checks`);
+      const echoEl = document.getElementById(`blueprint-thesis-echo`);
+      if (!previewEl || !checksEl) return;
+
+      const t = appState.thesis;
+      const hasCompare = t.compare.trim().length > 8;
+      const hasContrast = t.bradbury.trim().length > 8 && t.sher.trim().length > 8;
+      const hasLens = t.lens.trim().length > 5;
+
+      const fullText = getAssembledThesisText();
+      if (!fullText) {
+        previewEl.innerHTML = `Complete the fields on the left (or click <strong>Load Exemplar Model</strong>) to assemble your 1&ndash;3 sentence central idea.`;
+      } else {
+        const lensHtml = t.lens.trim() ? `, <span class="seg-lens">${escapeHtml(t.lens.trim().replace(/\.$/, ``))}</span>` : ``;
+        previewEl.innerHTML = `In Ray Bradbury’s “All Summer in a Day” and Ira Sher’s “The Man in the Well,” <span class="seg-compare">${escapeHtml(t.compare.trim() || `[shared behavior]`)}</span>. Although both groups surrender to peer influence, their motivations differ: <span class="seg-contrast-a">${escapeHtml(t.bradbury.trim() || `[Bradbury motive]`)}</span>, whereas <span class="seg-contrast-b">${escapeHtml(t.sher.trim() || `[Sher motive]`)}</span>${lensHtml}.`;
+      }
+
+      if (echoEl) {
+        echoEl.textContent = fullText || `Build your central idea in Module 03 above to see it linked here.`;
+      }
+
+      const pronounMatch = fullText.match(/\b(I|me|my|we|our|us|you|your)\b/i);
+      const contractionMatch = fullText.match(/\b\w+(n't|'re|'ve|'ll|'d|'m)\b/i);
+      const toneClean = !pronounMatch && !contractionMatch;
+
+      const items = [
+        {
+          ok: hasCompare && hasContrast,
+          label: `Names both stories &amp; groups (Bradbury &amp; Sher)`
+        },
+        {
+          ok: hasCompare,
+          label: `States a shared behavior or outcome (Compare)`
+        },
+        {
+          ok: hasContrast,
+          label: `Contrasts both distinct motivations (Contrast)`
+        },
+        {
+          ok: toneClean,
+          label: toneClean
+            ? `Formal 3rd-person academic voice verified`
+            : `Style alert: remove ${pronounMatch ? `1st/2nd person (“${pronounMatch[0]}”)` : `contraction (“${contractionMatch[0]}”)`}`
+        }
+      ];
+
+      checksEl.innerHTML = items.map(item => `
+        <li class="check-item">
+          <span class="check-badge ${item.ok ? `check-pass` : `check-warn`}">${item.ok ? `PASS` : `TODO`}</span>
+          <span>${item.label}${hasLens && item === items[2] ? ` + nonfiction synthesis` : ``}</span>
+        </li>
+      `).join(``);
+    }
+
+    function setEssayPath(path) {
+      appState.essayPath = path;
+      const btnA = document.getElementById(`btn-path-a`);
+      const btnB = document.getElementById(`btn-path-b`);
+      if (btnA) btnA.classList.toggle(`active`, path === `A`);
+      if (btnB) btnB.classList.toggle(`active`, path === `B`);
+
+      const config = path === `A` ? {
+        b1Title: `Body Paragraph 1: Shared Group Behavior (Compare)`,
+        b1Tag: `Path A • Connection`,
+        b1Guide: `Show how both groups conform to the crowd, act collectively, and feel shame afterward. Cite at least one detail from Bradbury, one from Sher, and a conformity lens (Exploratorium 4–5).`,
+        b2Title: `Body Paragraph 2: Bradbury’s Distinct Motivation (Contrast)`,
+        b2Tag: `Path A • Bradbury`,
+        b2Guide: `Explain how the children on Venus are driven by envy of Margot’s Earth memories and “us vs. them” hostility (Trafton 2, 6) under William’s instigation.`,
+        b3Title: `Body Paragraph 3: Sher’s Distinct Motivation (Contrast)`,
+        b3Tag: `Path A • Sher`,
+        b3Guide: `Contrast how the children at the well are driven by group anonymity and fear of breaking peer consensus (Trafton 3; Exploratorium 4), especially when their names are called.`
+      } : {
+        b1Title: `Body Paragraph 1: Bradbury’s “All Summer in a Day” + Nonfiction`,
+        b1Tag: `Path B • Text 1`,
+        b1Guide: `Analyze the Venus classmates’ behavior toward Margot—envy, William’s provocation, locking her in the closet—through “us vs. them” bias and conformity (Trafton 2; Exploratorium 5).`,
+        b2Title: `Body Paragraph 2: Sher’s “The Man in the Well” + Nonfiction`,
+        b2Tag: `Path B • Text 2`,
+        b2Guide: `Analyze the well children’s refusal to get help—their silence, fear of losing anonymity, and guilt—through pluralistic ignorance and group anonymity (Exploratorium 4; Trafton 3).`,
+        b3Title: `Body Paragraph 3: Direct Synthesis (Compare & Contrast)`,
+        b3Tag: `Path B • Synthesis`,
+        b3Guide: `Directly compare their shared surrender to the crowd while contrasting Bradbury’s envy-fueled retaliation against Sher’s anonymity-driven paralysis.`
+      };
+
+      const setText = (id, txt) => { const el = document.getElementById(id); if (el) el.textContent = txt; };
+      setText(`b1-title`, config.b1Title);
+      setText(`b1-tag`, config.b1Tag);
+      setText(`b1-guide`, config.b1Guide);
+      setText(`b2-title`, config.b2Title);
+      setText(`b2-tag`, config.b2Tag);
+      setText(`b2-guide`, config.b2Guide);
+      setText(`b3-title`, config.b3Title);
+      setText(`b3-tag`, config.b3Tag);
+      setText(`b3-guide`, config.b3Guide);
+
+      updateKpis();
+      scheduleSave();
+    }
+
+    function updateHookStarter() {
+      const sel = document.getElementById(`hook-style`);
+      const box = document.getElementById(`hook-exemplar-box`);
+      if (!sel || !box) return;
+      appState.hookStyle = sel.value;
+      const model = HOOK_MODELS[sel.value] || HOOK_MODELS.universal;
+      box.innerHTML = `<span class="index-num">${model.label}</span><p style="margin:var(--space-xs) 0 0 0; font-family:var(--font-headline); font-style:italic;">${model.text}</p>`;
+      scheduleSave();
+    }
+
+    function updateConclusionStarter() {
+      const sel = document.getElementById(`conc-style`);
+      const box = document.getElementById(`conc-exemplar-box`);
+      if (!sel || !box) return;
+      appState.concStyle = sel.value;
+      const model = CONCLUSION_MODELS[sel.value] || CONCLUSION_MODELS.echo;
+      box.innerHTML = `<span class="index-num">${model.label}</span><p style="margin:var(--space-xs) 0 0 0; font-family:var(--font-headline); font-style:italic;">${model.text}</p>`;
+      scheduleSave();
+    }
+
+    function renderBlueprintPinButtons() {
+      const resolved = appState.pinnedIds.map(resolvePinnedItem).filter(Boolean);
+      [`b1`, `b2`, `b3`].forEach(slot => {
+        const container = document.getElementById(`${slot}-pin-targets`);
+        if (!container) return;
+        if (resolved.length === 0) {
+          container.innerHTML = `<span style="font-size:0.8125rem; color:var(--on-surface-variant);">Pin quotes in Module 02 to insert them here.</span>`;
+          return;
+        }
+        container.innerHTML = resolved.map(item => `
+          <button type="button" class="vocab-chip" onclick="insertPinnedInto('${slot}', '${item.id}')">+ ${item.label}</button>
+        `).join(``);
+      });
+    }
+
+    function insertPinnedInto(slot, pinId) {
+      const item = resolvePinnedItem(pinId);
+      if (!item) return;
+      insertSnippet(slot, `${item.snippet} `);
+    }
+
+    function insertSnippet(slot, text) {
+      const ta = document.getElementById(`draft-${slot}`);
+      if (!ta) return;
+      const prefix = ta.value && !ta.value.endsWith(` `) && !ta.value.endsWith(`\n`) ? ` ` : ``;
+      ta.value = `${ta.value}${prefix}${text}`;
+      saveBlueprintText(slot, ta.value);
+      ta.focus();
+    }
+
+    function saveBlueprintText(slot, val) {
+      appState.drafts[slot] = val;
+      updateKpis();
+      const outlineEl = document.getElementById(`compiled-outline`);
+      if (outlineEl && !outlineEl.classList.contains(`hidden`)) {
+        outlineEl.textContent = compileOutlineString();
+      }
+      scheduleSave();
+    }
+
+    function compileOutlineString() {
+      const thesis = getAssembledThesisText() || `[Central idea not yet built in Module 03]`;
+      const pathLabel = appState.essayPath === `A` ? `Path A: Connection-First` : `Path B: Text-by-Text`;
+      const hookModel = (HOOK_MODELS[appState.hookStyle] || HOOK_MODELS.universal).label;
+      const concModel = (CONCLUSION_MODELS[appState.concStyle] || CONCLUSION_MODELS.echo).label;
+      const pinned = appState.pinnedIds.map(resolvePinnedItem).filter(Boolean).map(i => `- ${i.label}: ${i.snippet}`).join(`\n`);
+
+      return [
+        `LITERARY ANALYSIS ESSAY PLAN (${pathLabel})`,
+        `Texts: Ray Bradbury's "All Summer in a Day" & Ira Sher's "The Man in the Well"`,
+        `====================================================================`,
+        ``,
+        `01. INTRODUCTION (${hookModel})`,
+        `Hook & Bridge: ${appState.drafts.intro.trim() || `[Not drafted yet]`}`,
+        `Central Idea: ${thesis}`,
+        ``,
+        `02. ${document.getElementById(`b1-title`)?.textContent || `BODY PARAGRAPH 1`}`,
+        `${appState.drafts.b1.trim() || `[Not drafted yet]`}`,
+        ``,
+        `03. ${document.getElementById(`b2-title`)?.textContent || `BODY PARAGRAPH 2`}`,
+        `${appState.drafts.b2.trim() || `[Not drafted yet]`}`,
+        ``,
+        `04. ${document.getElementById(`b3-title`)?.textContent || `BODY PARAGRAPH 3`}`,
+        `${appState.drafts.b3.trim() || `[Not drafted yet]`}`,
+        ``,
+        `05. CONCLUSION (${concModel})`,
+        `${appState.drafts.conc.trim() || `[Not drafted yet]`}`,
+        ``,
+        `PINNED EVIDENCE TRAY:`,
+        pinned || `- None pinned yet`
+      ].join(`\n`);
+    }
+
+    function toggleCompiledOutline() {
+      const outlineEl = document.getElementById(`compiled-outline`);
+      if (!outlineEl) return;
+      const isHidden = outlineEl.classList.contains(`hidden`);
+      if (isHidden) {
+        outlineEl.textContent = compileOutlineString();
+        outlineEl.classList.remove(`hidden`);
+      } else {
+        outlineEl.classList.add(`hidden`);
+      }
+    }
+
+    function exportEssayPlan() {
+      const content = compileOutlineString();
+      if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === `function`) {
+        window.notebookAppApi.triggerFileDownload({
+          content,
+          contentType: `text/plain`,
+          encoding: `UTF-8`,
+          filename: `bradbury_sher_essay_plan.txt`
+        });
+      }
+    }
+
+    function buildMlaCitation() {
+      const authorEl = document.getElementById(`mla-author`);
+      const moveEl = document.getElementById(`mla-move`);
+      const paraEl = document.getElementById(`mla-para`);
+      const textEl = document.getElementById(`mla-text`);
+      const outEl = document.getElementById(`mla-output`);
+      if (!authorEl || !moveEl || !paraEl || !textEl || !outEl) return;
+
+      const author = authorEl.value;
+      const move = moveEl.value;
+      const para = Math.max(1, parseInt(paraEl.value, 10) || 1);
+      const raw = textEl.value.trim().replace(/^["“]|["”]$/g, ``).replace(/\.$/, ``) || `group behavior changes individual choices`;
+
+      let result = ``;
+      if (move === `quote`) {
+        result = `The text reveals that “${raw}” (${author} ${para}).`;
+      } else if (move === `signal`) {
+        result = `${author} writes, “${raw}” (${author} ${para}).`;
+      } else {
+        result = `${raw} (${author} ${para}).`;
+      }
+      outEl.innerHTML = `<span class="index-num">GENERATED MLA SENTENCE</span><div style="margin-top:var(--space-xs);">${escapeHtml(result)}</div>`;
+    }
+
+    function renderMlaQuiz() {
+      const q = MLA_QUIZ[appState.quizIndex % MLA_QUIZ.length];
+      const pEl = document.getElementById(`mla-quiz-prompt`);
+      const optEl = document.getElementById(`mla-quiz-options`);
+      const fbEl = document.getElementById(`mla-quiz-feedback`);
+      if (!pEl || !optEl || !fbEl) return;
+
+      pEl.textContent = `Question ${(appState.quizIndex % MLA_QUIZ.length) + 1} of ${MLA_QUIZ.length}: ${q.prompt}`;
+      fbEl.textContent = ``;
+      optEl.innerHTML = q.options.map((opt, idx) => `
+        <button type="button" class="quiz-opt" onclick="answerMlaQuiz(${idx}, this)">${escapeHtml(opt)}</button>
+      `).join(``);
+    }
+
+    function answerMlaQuiz(idx, btn) {
+      const q = MLA_QUIZ[appState.quizIndex % MLA_QUIZ.length];
+      const fbEl = document.getElementById(`mla-quiz-feedback`);
+      const buttons = document.querySelectorAll(`#mla-quiz-options .quiz-opt`);
+      buttons.forEach(b => b.classList.remove(`correct`, `wrong`));
+
+      if (idx === q.correctIdx) {
+        btn.classList.add(`correct`);
+        if (fbEl) {
+          fbEl.style.color = `var(--positive)`;
+          fbEl.textContent = q.explanation;
+        }
+      } else {
+        btn.classList.add(`wrong`);
+        if (fbEl) {
+          fbEl.style.color = `var(--error)`;
+          fbEl.textContent = `Not quite—check comma placement, quotation marks, and where the period goes (after the closing parenthesis).`;
+        }
+      }
+    }
+
+    function nextMlaQuestion() {
+      appState.quizIndex = (appState.quizIndex + 1) % MLA_QUIZ.length;
+      renderMlaQuiz();
+      scheduleSave();
+    }
+
+    function toggleChecklistItem(id, checked) {
+      appState.checklist[id] = checked;
+      updateKpis();
+      scheduleSave();
+    }
+
+    function updateKpis() {
+      const t = appState.thesis;
+      const tScore = (t.compare.trim().length > 8 ? 1 : 0)
+        + (t.bradbury.trim().length > 8 ? 1 : 0)
+        + (t.sher.trim().length > 8 ? 1 : 0);
+      const kpiThesis = document.getElementById(`kpi-thesis`);
+      const kpiThesisSub = document.getElementById(`kpi-thesis-sub`);
+      if (kpiThesis) kpiThesis.textContent = `${tScore} / 3`;
+      if (kpiThesisSub) kpiThesisSub.textContent = tScore === 3 ? `Central idea complete` : `Add comparison & contrasts`;
+
+      const resolved = appState.pinnedIds.map(resolvePinnedItem).filter(Boolean);
+      const hasB = resolved.some(i => i.source === `Bradbury`);
+      const hasS = resolved.some(i => i.source === `Sher`);
+      const hasNF = resolved.some(i => i.source === `Exploratorium` || i.source === `Trafton`);
+      const kpiEv = document.getElementById(`kpi-evidence`);
+      const kpiEvSub = document.getElementById(`kpi-evidence-sub`);
+      if (kpiEv) kpiEv.textContent = `${resolved.length} Pinned`;
+      if (kpiEvSub) {
+        const missing = [!hasB && `Bradbury`, !hasS && `Sher`, !hasNF && `Nonfiction`].filter(Boolean);
+        kpiEvSub.textContent = missing.length === 0 ? `All 3 text types covered` : `Need: ${missing.join(`, `)}`;
+      }
+
+      const d = appState.drafts;
+      const bpDone = [`intro`, `b1`, `b2`, `b3`, `conc`].filter(k => d[k] && d[k].trim().length >= 12).length;
+      const kpiBp = document.getElementById(`kpi-blueprint`);
+      const kpiBpSub = document.getElementById(`kpi-blueprint-sub`);
+      if (kpiBp) kpiBp.textContent = `${bpDone} / 5`;
+      if (kpiBpSub) kpiBpSub.textContent = appState.essayPath === `A` ? `Path A: Connection-First` : `Path B: Text-by-Text`;
+
+      const cCount = Object.values(appState.checklist).filter(Boolean).length;
+      const kpiChk = document.getElementById(`kpi-checklist`);
+      if (kpiChk) kpiChk.textContent = `${cCount} / 6`;
+    }
+
+    function handleResetWorkspace(btn) {
+      if (btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.classList.add(`btn-danger-arm`);
+        btn.textContent = `Click again to confirm reset`;
+        setTimeout(() => {
+          if (btn.dataset.armed === `true`) {
+            btn.dataset.armed = `false`;
+            btn.classList.remove(`btn-danger-arm`);
+            btn.textContent = `Reset Workspace`;
+          }
+        }, 4000);
+        return;
+      }
+      btn.dataset.armed = `false`;
+      btn.classList.remove(`btn-danger-arm`);
+      btn.textContent = `Reset Workspace`;
+
+      appState = {
+        activeLensId: `conformity-fit`,
+        lensFilter: `all`,
+        evidenceCat: `all`,
+        pinnedIds: [],
+        thesis: { compare: ``, bradbury: ``, sher: ``, lens: `` },
+        essayPath: `A`,
+        hookStyle: `universal`,
+        concStyle: `echo`,
+        drafts: { intro: ``, b1: ``, b2: ``, b3: ``, conc: `` },
+        checklist: { c1: false, c2: false, c3: false, c4: false, c5: false, c6: false },
+        quizIndex: 0
+      };
+      syncUiFromState();
+      scheduleSave();
+    }
+
+    function syncUiFromState() {
+      document.querySelectorAll(`[data-lens-source]`).forEach(el => {
+        el.classList.toggle(`active`, el.dataset.lensSource === appState.lensFilter);
+      });
+      document.querySelectorAll(`[data-ev-cat]`).forEach(el => {
+        el.classList.toggle(`active`, el.dataset.evCat === appState.evidenceCat);
+      });
+
+      [`compare`, `bradbury`, `sher`, `lens`].forEach(k => {
+        const el = document.getElementById(`thesis-${k}`);
+        if (el) el.value = appState.thesis[k] || ``;
+      });
+      [`intro`, `b1`, `b2`, `b3`, `conc`].forEach(k => {
+        const el = document.getElementById(`draft-${k}`);
+        if (el) el.value = appState.drafts[k] || ``;
+      });
+      Object.keys(appState.checklist).forEach(k => {
+        const cb = document.querySelector(`input[data-check-id="${k}"]`);
+        if (cb) cb.checked = Boolean(appState.checklist[k]);
+      });
+
+      const hookSel = document.getElementById(`hook-style`);
+      if (hookSel) hookSel.value = appState.hookStyle || `universal`;
+      const concSel = document.getElementById(`conc-style`);
+      if (concSel) concSel.value = appState.concStyle || `echo`;
+
+      renderLensList();
+      renderLensDetail();
+      renderEvidenceMap();
+      renderPinnedTray();
+      renderThesisPreview();
+      setEssayPath(appState.essayPath || `A`);
+      updateHookStarter();
+      updateConclusionStarter();
+      renderBlueprintPinButtons();
+      buildMlaCitation();
+      renderMlaQuiz();
+      updateKpis();
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, `&amp;`)
+        .replace(/</g, `&lt;`)
+        .replace(/>/g, `&gt;`)
+        .replace(/"/g, `&quot;`);
+    }
+
+    async function initApp() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === `object`) {
+            appState = {
+              ...appState,
+              ...saved,
+              thesis: { ...appState.thesis, ...(saved.thesis || {}) },
+              drafts: { ...appState.drafts, ...(saved.drafts || {}) },
+              checklist: { ...appState.checklist, ...(saved.checklist || {}) },
+              pinnedIds: Array.isArray(saved.pinnedIds) ? saved.pinnedIds : []
+            };
+          }
+        }
+      } catch (err) {
+        // Proceed cleanly with default empty workspace
+      }
+
+      syncUiFromState();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === `function`) {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener(`DOMContentLoaded`, initApp);
+  </script>
+</body>
+</html>
+Displaying Essay_Prep.html.
